@@ -126,6 +126,19 @@ def index():
     
     return render_template('index.html', feedbacks=feedbacks, companies=COMPANIES)
 
+@app.route('/about')
+def about():
+    """About Us page with platform information and stats"""
+    total_feedbacks = Feedback.query.filter_by(status='approved').count()
+    total_users = User.query.count()
+    total_companies = len(COMPANIES)
+    return render_template(
+        'about.html',
+        total_feedbacks=total_feedbacks,
+        total_users=total_users,
+        total_companies=total_companies
+    )
+
 @app.route('/api/feedback/filter', methods=['GET'])
 def filter_feedback():
     """API endpoint to get filtered feedback"""
