@@ -120,9 +120,20 @@ class FeedbackExporter:
                 'average_rating': 0
             }
         
-        positive = sum(1 for f in self.feedback_list if f.get('sentiment') == 'positive')
-        neutral = sum(1 for f in self.feedback_list if f.get('sentiment') == 'neutral')
-        negative = sum(1 for f in self.feedback_list if f.get('sentiment') == 'negative')
+        positive = sum(
+            1 for f in self.feedback_list
+            if f.get('sentiment', '').lower() == 'positive'
+        )
+    
+        neutral = sum(
+            1 for f in self.feedback_list
+            if f.get('sentiment', '').lower() == 'neutral'
+        )
+    
+        negative = sum(
+            1 for f in self.feedback_list
+            if f.get('sentiment', '').lower() == 'negative'
+        )
         
         total_rating = sum(f.get('rating', 0) for f in self.feedback_list)
         avg_rating = total_rating / len(self.feedback_list) if self.feedback_list else 0
